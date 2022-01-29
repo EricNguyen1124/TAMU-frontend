@@ -1,0 +1,19 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "ignorePatterns": ["*.js"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  },
+  "plugins": [
+    "prettier"
+  ]
+}
