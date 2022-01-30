@@ -14,6 +14,48 @@ const Transition1 = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ConfirmModal({ open, setOpen, title, setDoneStatus }) {
+  const { displayErrMess, setLoading, userProfile, isResume, setIsResume } =
+    useAuth();
+  const [openModal, setOpenModal] = useState(false);
+  const [file, setFile] = useState();
+  const host = "http://localhost:5000";
+  async function upuloadFile(file, customer_id) {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch(
+      `${host}/documents/upload_document/${customer_id}`,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "multipart/form-data",
+        },
+      }
+    );
+    return res.json();
+  }
+  async function handleUploadFile() {
+    setLoading(true);
+    // e.preventDefault();
+    const customerId = "123";
+    const res = await upuloadFile(file, customerId);
+    console.log("res upload file", res);
+    if (res.data) {
+      // const res1 = await getResumeInfo(userProfile.psid);
+      // console.log("res1", res1);
+      // setFileName(res1.data.resume_name);
+      // setResumeLink(res1.data.resume_link);
+      setOpenModal(false);
+      // setFile(null);
+      // setIsResume(true);
+      displayErrMess("Uploaded file Successfully!", "success");
+    } else {
+      displayErrMess("Fail to upload file", "error");
+    }
+
+    setLoading(false);
+  }
+
   return (
     <div>
       <Dialog
@@ -29,8 +71,13 @@ export default function ConfirmModal({ open, setOpen, title, setDoneStatus }) {
           <DialogContentText id="alert-dialog-slide-description">
             Please upload the invoice for <b>{title}</b>
           </DialogContentText>
-          <br/>
-          <UploadInvoice />
+          <br />
+          <UploadInvoice
+            file={file}
+            setFile={setFile}
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
         </DialogContent>
         <DialogActions>
           <Button
@@ -47,7 +94,7 @@ export default function ConfirmModal({ open, setOpen, title, setDoneStatus }) {
             onClick={() => {
               setOpen(false);
               setDoneStatus((prev) => !prev);
-
+              handleUploadFile();
             }}
             color="primary"
           >
