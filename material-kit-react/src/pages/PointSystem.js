@@ -11,6 +11,7 @@ import {
   MenuItem,
   Container,
   FilledInput,
+  Button,
   // Divider,
   // Button,
 } from "@material-ui/core";
@@ -27,6 +28,10 @@ import { editFb_user } from "src/mysql_db_api/fb_user";
 import { Attended_events, Resume } from "src/components/_dashboard/profile";
 import Label from "src/components/Label";
 import bxScan from "@iconify/icons-bx/bx-scan";
+import cloudUpload from "@iconify/icons-carbon/cloud-upload";
+import goldIcon from "@iconify/icons-cryptocurrency/gold";
+import houseWithGarden from "@iconify/icons-noto/house-with-garden";
+import { size } from "lodash";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -171,12 +176,13 @@ export default function PointSystem() {
         </p>
       </div>
 
-      <Grid item xs={0} gap={2}>
+      <Grid item xs={0} gap={2} style={{ color: "red" }}>
         <item>
           <TextField
             autoFocus
             label="ZIP Code"
             id="filled-basic"
+            // color="red"
             className={clsx(classes.margin, classes.textField)}
             // {...getFieldProps("linkedin_link")}
             variant="filled"
@@ -184,9 +190,17 @@ export default function PointSystem() {
         </item>
       </Grid>
       <item>
-        <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+        <Button
+          style={{
+            fontSize: "15px",
+            marginTop: "5px",
+            color: "red",
+            variant: "outlined",
+            width: "12%",
+          }}
+        >
           Start A Quote
-        </LoadingButton>
+        </Button>
       </item>
 
       <h2 style={{ fontSize: "25px", marginTop: "20px" }}>
@@ -212,49 +226,139 @@ export default function PointSystem() {
               fontSize: "18px",
               marginTop: "0px",
               marginBottom: "5px",
-              width: "15%",
+              width: "60%",
             }}
           >
-            Scan/ Upload Annual Home Inspection Report
+            Scan Inspection/ Security System Installation Invoices
           </h3>
           <p
             style={{
               fontSize: "15px",
               marginTop: "10px",
               marginBottom: "40px",
-              width: "45%",
+              width: "60%",
             }}
           >
-            Join us for scan and upload your annual home inspection report and
-            invoice today, and you will get reward points once we received the
-            information you uploaded to the web. Safe home save more with Scan
-            and Upload!
+            Scan and Save! Enroll with our latest system scan your annual home
+            inspection or security system installation invoices for better
+            savings! You will now get reward points once we receive the
+            information you uploaded to the web.
           </p>
         </Grid>
         <Grid item xs={6}>
-          <Icon icon={bxScan} width="60" height="60" color="red" />
+          <Icon icon={cloudUpload} width="60" height="60" color="red" />
           <h3
             style={{
               fontSize: "18px",
               marginTop: "0px",
               marginBottom: "5px",
-              width: "15%",
+              width: "60%",
             }}
           >
-            Scan/ Upload Annual Home Inspection Report
+            Upload Annual Inspection/ Security System Report
           </h3>
           <p
             style={{
               fontSize: "15px",
               marginTop: "10px",
               marginBottom: "40px",
-              width: "45%",
+              width: "60%",
             }}
           >
-            Join us for scan and upload your annual home inspection report and
-            invoice today, and you will get reward points once we received the
-            information you uploaded to the web. Safe home save more with Scan
-            and Upload!
+            Protect home sweet home by scheduling an annual home inspection and
+            saving more by uploading the inspection and security system reports
+            through mobile or web. If you share the referral code with your
+            friends and families, as soon as they enroll in a policy, you will
+            get an instant reward! Sharing is carrying!
+          </p>
+        </Grid>
+        <h2 style={{ fontSize: "25px", marginTop: "20px" }}>
+          Savings for Loyal Customers
+        </h2>
+        <p
+          style={{
+            fontSize: "16px",
+            marginTop: "10px",
+            marginBottom: "30px",
+            width: "80%",
+          }}
+        >
+          Choose Discount Farmer for more than one of your insurance needs, or
+          stay on top of your monthly billing, and our discounts can help you
+          get the exceptional service at a lower price!
+        </p>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Icon icon={goldIcon} width="60" height="60" color="red" />
+          <h3
+            style={{
+              fontSize: "18px",
+              marginTop: "0px",
+              marginBottom: "5px",
+              width: "60%",
+            }}
+          >
+            Multiple Membership Levels
+          </h3>
+          <p
+            style={{
+              fontSize: "16px",
+              marginTop: "10px",
+              marginBottom: "40px",
+              width: "90%",
+            }}
+          >
+            Bronze (0-100 points):
+            <br /> Enroll an insurance policy with Discount Farmer for 1 year,
+            can get 5% reward toward next billing cycle
+            <br />
+            <br />
+            Silver (101-200 points):
+            <br /> Enroll an insurance policy with Discount Farmer for 2 years,
+            can get 5% reward toward next billing cycle
+            <br />
+            <br />
+            Gold (201-300 points):
+            <br /> Enroll an insurance policy with Discount Farmer for 3 years,
+            can get 5% reward toward next billing cycle
+            <br />
+            <br />
+            Platinum (301-400 points):
+            <br /> Enroll an insurance policy with Discount Farmer for 5 years,
+            can get 5% reward toward next billing cycle
+            <br />
+            <br /> Diamond (401-500 points):
+            <br /> Enroll an insurance policy with Discount Farmer for 5+ years,
+            can get 10% reward toward next billing cycle
+            <br />
+            <br />
+          </p>
+        </Grid>
+        <Grid item xs={6}>
+          <Icon icon={houseWithGarden} width="60" height="60" color="red" />
+          <h3
+            style={{
+              fontSize: "18px",
+              marginTop: "0px",
+              marginBottom: "5px",
+              width: "60%",
+            }}
+          >
+            Multiple Line savings
+          </h3>
+          <p
+            style={{
+              fontSize: "16px",
+              marginTop: "10px",
+              marginBottom: "30px",
+              width: "90%",
+            }}
+          >
+            Enroll more than one insurance products to earn the biggest savings,
+            such as auto, homeowners, renters, or life insurance.
+            <br />
+            <p style={{ color: "red" }}>Learn more.</p>
           </p>
         </Grid>
       </Grid>
