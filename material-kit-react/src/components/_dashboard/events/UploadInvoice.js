@@ -15,7 +15,7 @@ export default function UploadInvoice() {
   const [openModal, setOpenModal] = useState(false);
   useEffect(async () => {
     const res = await getResumeInfo(userProfile.psid);
-    console.log(res);
+    // console.log(res);
     if (res.data) {
       setFileName(res.data.resume_name);
       setResumeLink(res.data.resume_link);
