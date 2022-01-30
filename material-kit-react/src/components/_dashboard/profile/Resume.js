@@ -69,9 +69,38 @@ export default function Resume() {
       <Stack direction="row" spacing={2} style={{ marginBottom: "15px" }}>
         <TextField
           style={{ width: "50ch" }}
-          value={fileName == "" ? "No Resume Uploaded" : fileName}
+          value={fileName == "" ? "No Inspection Report Uploaded" : fileName}
           type="text"
-          label="Resume"
+          label="Inspection Report"
+          disabled
+        ></TextField>
+        <Button
+          style={{ padding: "5px", height: "55px", marginLeft: "10px" }}
+          size="small"
+          variant="outlined"
+          component="span"
+          onClick={() => setOpenModal(true)}
+        >
+          Upload New
+        </Button>
+        <Button
+          style={{ padding: "5px", height: "55px", marginLeft: "10px" }}
+          size="small"
+          variant="outlined"
+          component="span"
+          onClick={viewResume}
+          disabled={!isResume}
+        >
+          View
+        </Button>
+      </Stack>
+
+<Stack direction="row" spacing={2} style={{ marginBottom: "15px" }}>
+        <TextField
+          style={{ width: "50ch" }}
+          value={fileName == "" ? "No Inspection Invoice Uploaded" : fileName}
+          type="text"
+          label="Inspection Invoice"
           disabled
         ></TextField>
         <Button
@@ -124,7 +153,7 @@ export default function Resume() {
         </Stack>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancle
+            Cancel
           </Button>
           <Button onClick={handleUploadFile} disabled={!file} color="primary">
             Upload

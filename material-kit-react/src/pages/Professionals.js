@@ -1,49 +1,25 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useAuth } from "src/authentication/AuthContext";
-import {
-  addOneInterviewSignUp,
-  addOneLinkedinSignUp,
-  addOneResumeSignUp,
-} from "src/mysql_db_api/members";
+import { addOneInterviewSignUp } from "src/mysql_db_api/members";
 import { ProfessionalsTab } from "src/components/_dashboard/professionals";
 import { Container, Grid } from "@material-ui/core";
 import handshakeIcon from "@iconify/icons-fa-regular/handshake";
-import documentSentiment from "@iconify/icons-carbon/document-sentiment";
-import linkedinOutlined from "@iconify/icons-ant-design/linkedin-outlined";
-
-const pd_name = process.env.REACT_APP_PD_NAME;
-const pd_linkedin = process.env.REACT_APP_PD_LINKEDIN;
-const pd_email = process.env.REACT_APP_PD_EMAIL;
+import fileSearchAlt from "@iconify/icons-uil/file-search-alt";
+import InputAdornments from "./Profile";
 
 export default function Professionals() {
   const { userProfile, isResume } = useAuth();
   const psid = userProfile.psid;
   // console.log("linkedin", userProfile.linkedin_link);
-  const canSignupLinkedinReview =
-    userProfile.linkedin_link.includes("linkedin.com");
   const canSignupResumeReview = isResume;
   const professionals_tab_info = [
     {
-      name: "Mock Interview",
+      name: "Schedule Home Inspection",
       func: async () => await addOneInterviewSignUp(psid),
-      icon: handshakeIcon,
-      color: 0, // color code
-      canSignup: true,
-    },
-    {
-      name: "Resume Review",
-      func: async () => await addOneResumeSignUp(psid),
-      icon: documentSentiment,
+      icon: fileSearchAlt,
       color: 2, // color code
-      canSignup: canSignupResumeReview,
-    },
-    {
-      name: "Linkedin Review",
-      func: async () => await addOneLinkedinSignUp(psid),
-      icon: linkedinOutlined,
-      color: 1, // color code
-      canSignup: canSignupLinkedinReview,
+      canSignup: true,
     },
   ];
 
@@ -72,18 +48,8 @@ export default function Professionals() {
           );
         })}
       </Grid>
+      <InputAdornments />
       <div style={{ paddingBottom: "75px", paddingTop: "25px" }}>
-        <h3
-          style={{
-            padding: "12px",
-            backgroundColor: "#EBF0F5",
-            borderRadius: "12px",
-            textAlign: "center",
-            fontSize: "25px",
-          }}
-        >
-          Professional Development Officer
-        </h3>
         <h2
           style={{
             padding: "12px",
@@ -91,20 +57,7 @@ export default function Professionals() {
             position: "relative",
           }}
         >
-          {pd_name}
           <br />
-          <Icon
-            icon="carbon:logo-linkedin"
-            onClick={openLinkedIn}
-            cursor={"pointer"}
-            fontSize={"30px"}
-          />
-          <Icon
-            icon="ic:baseline-email"
-            onClick={openEmail}
-            cursor={"pointer"}
-            fontSize={"30px"}
-          />
           <div
             style={{
               display: "flex",
@@ -117,21 +70,9 @@ export default function Professionals() {
               // marginLeft: "auto",
               // marginRight: "auto",
               // zIndex: "-1",
-
             }}
-          >
-            <img
-              src="https://misso.org/wp-content/uploads/2022/01/tony-scaled.jpg"
-              style={{
-                borderRadius: "60px",
-                width: "500px",
-                boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
-              }}
-            />
-          </div>
+          ></div>
         </h2>
-
-        {/* https://misso.org/wp-content/uploads/2022/01/tony-scaled.jpg */}
       </div>
     </Container>
   );

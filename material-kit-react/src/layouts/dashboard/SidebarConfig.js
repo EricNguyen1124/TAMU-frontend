@@ -19,13 +19,13 @@ export const sidebarConfig = [
     isAdmin: false,
   },
   {
-    title: "Education",
+    title: "Home Insurance Savings",
     path: "/dashboard/edu",
     icon: getIcon(pieChart2Fill),
     isAdmin: false,
   },
   {
-    title: "Professional Development",
+    title: "Schedule Home Inspection",
     path: "/dashboard/professionals",
     isAdmin: false,
     icon: getIcon(fileTextFill),
