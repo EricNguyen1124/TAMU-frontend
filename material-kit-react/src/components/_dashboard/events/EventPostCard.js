@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 
 import bookmarkCheck from "@iconify/icons-bi/bookmark-check";
+import sharpPendingActions from '@iconify/icons-ic/sharp-pending-actions';
 // material
 import { experimentalStyled as styled } from "@material-ui/core/styles";
 import { Card, Grid } from "@material-ui/core";
@@ -58,12 +59,12 @@ export default function EventPostCard({ id, title, points, image }) {
                 position: "absolute",
                 top: 0,
                 right: 20,
-                color: "green",
+                color: "grey",
                 backgroundColor: "rgba(255,255,255,0.5)",
                 borderRadius: "0px 0px 10px 10px",
               }}
             >
-              <Icon icon={bookmarkCheck} fontSize={50} />
+              <Icon icon={sharpPendingActions} fontSize={50} />
             </div>
           )}
         </Card>
