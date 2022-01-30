@@ -8,28 +8,23 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import UploadInvoice from "./UploadInvoice";
 import { useAuth } from "src/authentication/AuthContext";
+import axios from "axios";
 
 const Transition1 = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function ReferModal({ open, setOpen, title, setDoneStatus }) {
-  const { displayErrMess, setLoading, userProfile, isResume, setIsResume } =
-    useAuth();
-  const [openModal, setOpenModal] = useState(false);
-  const [file, setFile] = useState();
+export default function ReferModal({ taskID, open, setOpen, title, setDoneStatus }) {
 
-  const host = "http://localhost:5000";
-
-  async function updateDoneStatus() {
-    const res = await fetch(
-      `${host}/tasks/update/${taskID}`,
-      {
-        method: "POST",
-      }
-    );
+  const handlePost = () => {
+    axios.post(`http://localhost:5000/tasks/update/${taskID}}`)
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
-
 
   return (
     <div>
@@ -44,25 +39,19 @@ export default function ReferModal({ open, setOpen, title, setDoneStatus }) {
         <DialogTitle id="alert-dialog-slide-title">{"Next Step!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Thank you!
+            Thank you for referring!
           </DialogContentText>
-          <br />
-          <UploadInvoice
-            file={file}
-            setFile={setFile}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
         </DialogContent>
         <DialogActions>
           <Button
             variant="outlined"
             onClick={() => {
               setOpen(false);
+              handlePost();
             }}
             color="primary"
           >
-            OKAY
+            Okay
           </Button>
         </DialogActions>
       </Dialog>

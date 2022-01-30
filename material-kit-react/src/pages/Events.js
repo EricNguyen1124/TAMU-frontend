@@ -41,6 +41,7 @@ import { useState, useEffect } from "react";
 
 export default function Events() {
   const [taskList, setTaskList] = useState([]);
+  const [doneStatus, setDoneStatus] = useState(false);
 
   const getTaskList = async () => {
     try {
@@ -77,7 +78,8 @@ export default function Events() {
                 points={task.points}
                 image={task.image}
                 isConfirm={task.isConfirm}
-                done={task.done}
+                doneStatus={task.done}
+                setDoneStatus={setDoneStatus}
               />
             ))}
           </Grid>

@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import bookmarkCheck from "@iconify/icons-bi/bookmark-check";
 import sharpPendingActions from "@iconify/icons-ic/sharp-pending-actions";
@@ -6,6 +7,7 @@ import sharpPendingActions from "@iconify/icons-ic/sharp-pending-actions";
 import { experimentalStyled as styled } from "@material-ui/core/styles";
 import { Card, Grid } from "@material-ui/core";
 import "./EventCard.css";
+import axios from "axios";
 // ----------------------------------------------------------------------
 
 const CardMediaStyle = styled("div")({
@@ -25,35 +27,33 @@ const CoverImgStyle = styled("img")({
 
 import { useEffect, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
+import ReferModal from "./ReferModal";
 export default function EventPostCard({
   taskID,
   title,
   points,
   image,
   isConfirm,
-  done
+  doneStatus,
+  setDoneStatus,
 }) {
-  const [doneStatus, setDoneStatus] = useState(false);
-  const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [openReferModal, setOpenReferModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const handleOpenConfirmModal = () => {
     setOpenConfirmModal((prev) => !prev);
   };
+  const navigate = useNavigate();
 
-  const handlePost = () => {
-    axios.post(`http://localhost:5000/tasks/update/${taskID}}`)
-    .then(res => {
-      console.log(res.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
-  
-  useEffect(() => {
+  const handleClick = () => {
+    navigate("/dashboard/professionals");
+  };
 
-  },[done])
+  const handleRefer = () => {
+    setOpenReferModal(prev => !prev)
+  };
+
+  useEffect(() => {}, [doneStatus]);
 
   return (
     <>
@@ -72,15 +72,19 @@ export default function EventPostCard({
               {"Points: "}
               {points}
             </p>
-            {
-              <button
-                onClick={isConfirm ? handleOpenConfirmModal : handlePost}
-                className="button"
-                disabled={doneStatus ? true : false}
-              >
-                {!doneStatus ? "Resolve" : "Pending"}
-              </button>
-            }
+            <button
+              onClick={
+                isConfirm
+                  ? handleOpenConfirmModal
+                  : taskID == 2
+                  ? handleClick
+                  : handleRefer
+              }
+              className="button"
+              disabled={doneStatus ? true : false}
+            >
+              {!doneStatus ? "Resolve" : "Pending"}
+            </button>
           </div>
 
           {doneStatus && (
@@ -102,6 +106,13 @@ export default function EventPostCard({
         <ConfirmModal
           open={openConfirmModal}
           setOpen={setOpenConfirmModal}
+          title={title}
+          setDoneStatus={setDoneStatus}
+          taskID={taskID}
+        />
+        <ReferModal
+          open={openReferModal}
+          setOpen={setOpenReferModal}
           title={title}
           setDoneStatus={setDoneStatus}
           taskID={taskID}
