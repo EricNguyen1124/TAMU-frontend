@@ -8,20 +8,31 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import UploadInvoice from "./UploadInvoice";
 import { useAuth } from "src/authentication/AuthContext";
+import axios from "axios";
 
 const Transition1 = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-
-
-export default function ConfirmModal({ open, setOpen, title, setDoneStatus }) {
+export default function ConfirmModal({ taskID, open, setOpen, title, setDoneStatus }) {
   const { displayErrMess, setLoading, userProfile, isResume, setIsResume } =
     useAuth();
   const [openModal, setOpenModal] = useState(false);
   const [file, setFile] = useState();
+
   const host = "http://localhost:5000";
-  async function upuloadFile(file, customer_id) {
+
+  const handlePost = () => {
+    axios.post(`http://localhost:5000/tasks/update/${taskID}}`)
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
+  async function uploadFile(file, customer_id) {
     const formData = new FormData();
     formData.append("file", file);
     const res = await fetch(
@@ -40,7 +51,7 @@ export default function ConfirmModal({ open, setOpen, title, setDoneStatus }) {
     setLoading(true);
     // e.preventDefault();
     const customerId = "123";
-    const res = await upuloadFile(file, customerId);
+    const res = await uploadFile(file, customerId);
     console.log("res upload file", res);
     if (res.data) {
       // const res1 = await getResumeInfo(userProfile.psid);
@@ -97,6 +108,7 @@ export default function ConfirmModal({ open, setOpen, title, setDoneStatus }) {
               setOpen(false);
               setDoneStatus((prev) => !prev);
               handleUploadFile();
+              handlePost();
             }}
             color="primary"
           >

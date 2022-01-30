@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 
 import bookmarkCheck from "@iconify/icons-bi/bookmark-check";
-import sharpPendingActions from '@iconify/icons-ic/sharp-pending-actions';
+import sharpPendingActions from "@iconify/icons-ic/sharp-pending-actions";
 // material
 import { experimentalStyled as styled } from "@material-ui/core/styles";
 import { Card, Grid } from "@material-ui/core";
@@ -23,33 +23,64 @@ const CoverImgStyle = styled("img")({
 
 // ----------------------------------------------------------------------
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
-export default function EventPostCard({ id, title, points, image }) {
+export default function EventPostCard({
+  taskID,
+  title,
+  points,
+  image,
+  isConfirm,
+  done
+}) {
   const [doneStatus, setDoneStatus] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const handleOpenConfirmModal = () => {
-    setOpenConfirmModal(prev => !prev)
+    setOpenConfirmModal((prev) => !prev);
+  };
+
+  const handlePost = () => {
+    axios.post(`http://localhost:5000/tasks/update/${taskID}}`)
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
+  
+  useEffect(() => {
+
+  },[done])
 
   return (
     <>
       <Grid item xs={12} sm={6} md={3}>
         <Card sx={{ position: "relative" }}>
           <CardMediaStyle>
-            <CoverImgStyle alt={title} src={`${image}`} sx={doneStatus ? { opacity : 0.5 } : { opacity : 1 }} />
+            <CoverImgStyle
+              alt={title}
+              src={`${image}`}
+              sx={doneStatus ? { opacity: 0.5 } : { opacity: 1 }}
+            />
           </CardMediaStyle>
           <div className="task-info">
             <p className="title">{title}</p>
             <p className="subtitle">
-            {"Points: "}
-            {points}
+              {"Points: "}
+              {points}
             </p>
-            <button onClick={handleOpenConfirmModal} className="button" disabled={doneStatus ? true : false}>
-              {!doneStatus ? "Resolve" : "Pending"}
-            </button>
+            {
+              <button
+                onClick={isConfirm ? handleOpenConfirmModal : handlePost}
+                className="button"
+                disabled={doneStatus ? true : false}
+              >
+                {!doneStatus ? "Resolve" : "Pending"}
+              </button>
+            }
           </div>
 
           {doneStatus && (
@@ -69,12 +100,12 @@ export default function EventPostCard({ id, title, points, image }) {
           )}
         </Card>
         <ConfirmModal
-        open={openConfirmModal}
-        setOpen={setOpenConfirmModal}
-        title={title}
-        setDoneStatus={setDoneStatus}
-      />
-
+          open={openConfirmModal}
+          setOpen={setOpenConfirmModal}
+          title={title}
+          setDoneStatus={setDoneStatus}
+          taskID={taskID}
+        />
       </Grid>
     </>
   );
