@@ -1745,6 +1745,16 @@
   resolved "https://registry.npmjs.org/@iconify/icons-carbon/-/icons-carbon-1.1.6.tgz"
   integrity sha512-HHWaPhVlVuXLjrGYpofryOaddBTaIRD64PwGQQ7Z/2smzFMGtyUUMRS3/lOSwBuXKnlE4H1lcr4inJ2XBmTeHQ==
 
+"@iconify/icons-clarity@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-clarity/-/icons-clarity-1.1.2.tgz#5db03a258422c5008b12730dbd7c4008285a8aee"
+  integrity sha512-znb3W2ubwNp9aWVEAoiETqoTgKn8Obp+5i2BtxQIcow8MEkgw5Y2JwfxUxIDTfYX7W4sreM9HYjBuffkkKoibg==
+
+"@iconify/icons-cryptocurrency@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-cryptocurrency/-/icons-cryptocurrency-1.1.3.tgz#a54054883aebbedf57af4c53cf961f195b52c41f"
+  integrity sha512-3cKajk217OxNDjHWn0nbK4/+7DB6y8oAVu1OF5WXbOzHVxrcbzi/ydnFH1KV5YMrKP1H1kdG4oD6UPt8EhGLoA==
+
 "@iconify/icons-eva@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@iconify/icons-eva/-/icons-eva-1.1.0.tgz"
@@ -1759,6 +1769,11 @@
   version "1.1.17"
   resolved "https://registry.npmjs.org/@iconify/icons-ic/-/icons-ic-1.1.17.tgz"
   integrity sha512-7hBao2xPa8ZAzXIMhl1sfWK74GTEZtBGhO0h53TX21JOY9xCto9uTWbbIOyEqA2Z0IzFl4tqhZKcS/4UJPB7XQ==
+
+"@iconify/icons-noto@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-noto/-/icons-noto-1.1.4.tgz#9ce3391a5f93d52033c0fd1cff6319ce21ac0fbf"
+  integrity sha512-gAVxWHv7kvmBcI+GPiXpDSAPWpzMqWw5TcfGPDjgULpV/NwfAe6T7LvhX+SAGqsiG35IxmNADIr0Y29UtD83Cg==
 
 "@iconify/icons-uil@^1.1.1":
   version "1.1.1"
