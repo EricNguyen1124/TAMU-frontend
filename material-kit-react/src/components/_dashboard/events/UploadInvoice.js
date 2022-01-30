@@ -6,13 +6,18 @@ import { Dialog, DialogActions, DialogTitle, Slide } from "@material-ui/core";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-export default function UploadInvoice() {
+export default function UploadInvoice({
+  file,
+  setFile,
+  openModal,
+  setOpenModal,
+}) {
   const { displayErrMess, setLoading, userProfile, isResume, setIsResume } =
     useAuth();
-  const [file, setFile] = useState();
+
   const [fileName, setFileName] = useState("");
   const [resume_link, setResumeLink] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+
   useEffect(async () => {
     const res = await getResumeInfo(userProfile.psid);
     // console.log(res);
@@ -21,28 +26,8 @@ export default function UploadInvoice() {
       setResumeLink(res.data.resume_link);
     }
   }, []);
-  async function handleUploadFile(e) {
-    setLoading(true);
-    e.preventDefault();
-    const res = await uploadResume(userProfile.psid, file);
-    console.log("res upload file", res);
-    if (res.data) {
-      const res1 = await getResumeInfo(userProfile.psid);
-      console.log("res1", res1);
-      setFileName(res1.data.resume_name);
-      setResumeLink(res1.data.resume_link);
-      setOpenModal(false);
-      setFile(null);
-      setIsResume(true);
-      displayErrMess("Uploaded Resume Successfully!", "success");
-    } else {
-      displayErrMess("Fail to upload resume", "error");
-    }
 
-    setLoading(false);
-  }
-
-  const fileNameChange = (e) => {
+  const fileNameChange = async (e) => {
     var regex = new RegExp("(.*?).(pdf)$");
 
     if (!regex.test(e.target.files[0].name.toLowerCase())) {
@@ -52,7 +37,9 @@ export default function UploadInvoice() {
       const name = e.target.files[0].name.toLowerCase();
       setFileName(name);
       setFile(e.target.files[0]);
+      // await handleUploadFile();
     }
+    setLoading(false);
   };
 
   const handleClose = () => {
